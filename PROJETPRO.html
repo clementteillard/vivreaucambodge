@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vivre au Cambodge — Votre guide pour s'installer et voyager au Cambodge</title>
+    <meta name="description" content="Vivre au Cambodge : accompagnement visa, logement, emploi et tourisme pour les Français au Cambodge. Expertise locale, service francophone.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #C8A24E;
+            --gold-light: #E8D49A;
+            --gold-dark: #9A7B2F;
+            --navy: #0F1A2E;
+            --navy-mid: #1A2B45;
+            --navy-light: #243B5C;
+            --cream: #F7F3EB;
+            --cream-dark: #EDE5D5;
+            --text: #2C3040;
+            --text-light: #6B7084;
+            --white: #FFFFFF;
+            --red-khmer: #B33A3A;
+            --teal: #2E8B7A;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text);
+            background: var(--cream);
+            overflow-x: hidden;
+        }
+
+        /* ======================== LOADER ======================== */
+        #loader {
+            position: fixed; inset: 0; z-index: 9999;
+            background: var(--navy);
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        #loader.hidden { opacity: 0; visibility: hidden; }
+        #loader svg { width: 80px; height: 80px; }
+        .loader-ring {
+            fill: none; stroke: var(--gold); stroke-width: 2;
+            stroke-dasharray: 200; stroke-dashoffset: 200;
+            animation: loaderDraw 1.5s ease-in-out infinite;
+        }
+        @keyframes loaderDraw {
+            0% { stroke-dashoffset: 200; }
+            50% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: -200; }
+        }
+
+        /* ======================== NAV ======================== */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 1rem 2rem;
+            display: flex; align-items: center; justify-content: space-between;
+            transition: all 0.4s ease;
+            background: transparent;
+        }
+        nav.scrolled {
+            background: rgba(15, 26, 46, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 0.7rem 2rem;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.15);
+        }
+        .nav-logo {
+            display: flex; align-items: center; gap: 12px;
+            text-decoration: none;
+        }
+        .nav-logo svg { width: 42px; height: 42px; transition: transform 0.3s ease; }
+        .nav-logo:hover svg { transform: rotate(-5deg) scale(1.05); }
+        .nav-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem; font-weight: 700;
+            color: var(--gold); letter-spacing: 0.5px;
+        }
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a {
+            color: rgba(255,255,255,0.8); text-decoration: none;
+            font-size: 0.88rem; font-weight: 500; letter-spacing: 0.3px;
+            position: relative; transition: color 0.3s;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0;
+            width: 0; height: 2px; background: var(--gold);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-cta {
+            background: var(--gold) !important; color: var(--navy) !important;
+            padding: 0.55rem 1.5rem; border-radius: 6px;
+            font-weight: 600 !important; font-size: 0.85rem !important;
+            transition: all 0.3s ease !important; letter-spacing: 0.3px;
+        }
+        .nav-cta::after { display: none !important; }
+        .nav-cta:hover { background: var(--gold-light) !important; transform: translateY(-1px); }
+
+        .mobile-toggle {
+            display: none; background: none; border: none; cursor: pointer;
+            width: 30px; height: 24px; position: relative; z-index: 200;
+        }
+        .mobile-toggle span {
+            display: block; width: 100%; height: 2px;
+            background: var(--gold); position: absolute; left: 0;
+            transition: all 0.3s ease;
+        }
+        .mobile-toggle span:nth-child(1) { top: 0; }
+        .mobile-toggle span:nth-child(2) { top: 11px; }
+        .mobile-toggle span:nth-child(3) { top: 22px; }
+        .mobile-toggle.active span:nth-child(1) { top: 11px; transform: rotate(45deg); }
+        .mobile-toggle.active span:nth-child(2) { opacity: 0; }
+        .mobile-toggle.active span:nth-child(3) { top: 11px; transform: rotate(-45deg); }
+
+        /* ======================== HERO ======================== */
+        .hero {
+            min-height: 100vh; position: relative;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--navy);
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 80%, rgba(200,162,78,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(46,139,122,0.06) 0%, transparent 50%),
+                linear-gradient(180deg, var(--navy) 0%, var(--navy-mid) 100%);
+        }
+        /* Animated floating particles */
+        .particles {
+            position: absolute; inset: 0; overflow: hidden;
+        }
+        .particle {
+            position: absolute; width: 3px; height: 3px;
+            background: var(--gold); border-radius: 50%;
+            opacity: 0; animation: floatParticle 8s ease-in-out infinite;
+        }
+        @keyframes floatParticle {
+            0% { opacity: 0; transform: translateY(100vh) scale(0); }
+            20% { opacity: 0.6; }
+            80% { opacity: 0.3; }
+            100% { opacity: 0; transform: translateY(-20vh) scale(1); }
+        }
+
+        .hero-content {
+            position: relative; z-index: 2;
+            text-align: center; padding: 2rem;
+            max-width: 900px;
+        }
+        .hero-logo-main {
+            width: 140px; height: 140px; margin: 0 auto 2rem;
+            opacity: 0; animation: heroLogoIn 1.2s ease-out 0.5s forwards;
+        }
+        @keyframes heroLogoIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.8); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .hero-badge {
+            display: inline-block;
+            font-size: 0.75rem; font-weight: 600; letter-spacing: 3px;
+            color: var(--gold); text-transform: uppercase;
+            padding: 0.5rem 1.5rem; margin-bottom: 1.5rem;
+            border: 1px solid rgba(200,162,78,0.3); border-radius: 30px;
+            opacity: 0; animation: fadeUp 0.8s ease-out 0.8s forwards;
+        }
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            font-weight: 700; color: var(--white);
+            line-height: 1.1; margin-bottom: 1.2rem;
+            opacity: 0; animation: fadeUp 0.8s ease-out 1s forwards;
+        }
+        .hero h1 .gold { color: var(--gold); }
+        .hero-sub {
+            font-size: 1.15rem; color: rgba(255,255,255,0.65);
+            line-height: 1.7; max-width: 600px; margin: 0 auto 2.5rem;
+            opacity: 0; animation: fadeUp 0.8s ease-out 1.2s forwards;
+        }
+        .hero-buttons {
+            display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+            opacity: 0; animation: fadeUp 0.8s ease-out 1.4s forwards;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-primary {
+            background: var(--gold); color: var(--navy);
+            padding: 0.9rem 2.2rem; border-radius: 8px;
+            font-weight: 700; font-size: 0.95rem;
+            text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+            transition: all 0.3s ease; border: 2px solid var(--gold);
+        }
+        .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(200,162,78,0.3); }
+        .btn-outline {
+            background: transparent; color: var(--white);
+            padding: 0.9rem 2.2rem; border-radius: 8px;
+            font-weight: 600; font-size: 0.95rem;
+            text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+            transition: all 0.3s ease; border: 2px solid rgba(255,255,255,0.25);
+        }
+        .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+        .hero-scroll {
+            position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+            z-index: 2; animation: bounce 2s ease-in-out infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* ======================== SECTION COMMONS ======================== */
+        section { padding: 6rem 2rem; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .section-label {
+            font-size: 0.72rem; font-weight: 700; letter-spacing: 4px;
+            color: var(--gold-dark); text-transform: uppercase;
+            margin-bottom: 0.8rem;
+        }
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700; color: var(--navy);
+            line-height: 1.15; margin-bottom: 1rem;
+        }
+        .section-desc {
+            font-size: 1.05rem; color: var(--text-light);
+            line-height: 1.7; max-width: 600px;
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0; transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ======================== SERVICES ======================== */
+        #services { background: var(--white); }
+        .services-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem; margin-top: 3rem;
+        }
+        .service-card {
+            background: var(--cream);
+            border-radius: 16px; padding: 2rem 1.8rem;
+            position: relative; overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid transparent;
+            cursor: default;
+        }
+        .service-card::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--teal));
+            transform: scaleX(0); transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        .service-card:hover { transform: translateY(-6px); border-color: rgba(200,162,78,0.2); box-shadow: 0 20px 50px rgba(0,0,0,0.06); }
+        .service-card:hover::before { transform: scaleX(1); }
+        .service-icon {
+            width: 56px; height: 56px; border-radius: 14px;
+            background: var(--navy); display: flex; align-items: center; justify-content: center;
+            margin-bottom: 1.2rem; transition: all 0.3s ease;
+        }
+        .service-card:hover .service-icon { background: var(--gold); }
+        .service-icon svg { width: 26px; height: 26px; }
+        .service-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.35rem; font-weight: 700;
+            color: var(--navy); margin-bottom: 0.7rem;
+        }
+        .service-card p {
+            font-size: 0.9rem; color: var(--text-light);
+            line-height: 1.65;
+        }
+        .service-tag {
+            display: inline-block; margin-top: 1rem;
+            font-size: 0.75rem; font-weight: 600;
+            color: var(--gold-dark); letter-spacing: 0.5px;
+            padding: 0.3rem 0.8rem; border-radius: 20px;
+            background: rgba(200,162,78,0.1);
+        }
+
+        /* ======================== ABOUT ======================== */
+        #about { background: var(--cream); }
+        .about-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 4rem; align-items: center; margin-top: 3rem;
+        }
+        .about-visual {
+            position: relative; height: 420px;
+            border-radius: 20px; overflow: hidden;
+        }
+        .about-pattern {
+            position: absolute; inset: 0;
+            background:
+                linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+            border-radius: 20px;
+        }
+        .about-pattern svg {
+            position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 80%; opacity: 0.1;
+        }
+        .about-stats {
+            position: absolute; bottom: 2rem; left: 2rem; right: 2rem;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+        }
+        .stat-box {
+            background: rgba(255,255,255,0.07);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(200,162,78,0.15);
+            border-radius: 12px; padding: 1.2rem;
+            text-align: center;
+        }
+        .stat-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem; font-weight: 700;
+            color: var(--gold); line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.75rem; color: rgba(255,255,255,0.6);
+            margin-top: 0.3rem; letter-spacing: 0.3px;
+        }
+        .about-text h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem; font-weight: 700;
+            color: var(--navy); margin-bottom: 0.8rem;
+        }
+        .about-text p {
+            font-size: 0.95rem; color: var(--text-light);
+            line-height: 1.75; margin-bottom: 1rem;
+        }
+        .about-features {
+            list-style: none; margin-top: 1.5rem;
+            display: flex; flex-direction: column; gap: 0.8rem;
+        }
+        .about-features li {
+            display: flex; align-items: center; gap: 12px;
+            font-size: 0.9rem; color: var(--text); font-weight: 500;
+        }
+        .about-features li .check {
+            width: 24px; height: 24px; border-radius: 50%;
+            background: rgba(46,139,122,0.1); display: flex;
+            align-items: center; justify-content: center; flex-shrink: 0;
+        }
+
+        /* ======================== PRICING ======================== */
+        #tarifs { background: var(--white); }
+        .pricing-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem; margin-top: 3rem;
+        }
+        .price-card {
+            border: 1px solid var(--cream-dark);
+            border-radius: 16px; padding: 2.2rem;
+            position: relative; transition: all 0.4s ease;
+            background: var(--white);
+        }
+        .price-card.featured {
+            border-color: var(--gold);
+            background: linear-gradient(180deg, rgba(200,162,78,0.04) 0%, var(--white) 100%);
+        }
+        .price-card.featured::after {
+            content: 'POPULAIRE'; position: absolute; top: -12px; right: 20px;
+            background: var(--gold); color: var(--navy);
+            font-size: 0.65rem; font-weight: 700; letter-spacing: 1.5px;
+            padding: 0.3rem 1rem; border-radius: 20px;
+        }
+        .price-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.06); }
+        .price-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem; font-weight: 700; color: var(--navy);
+            margin-bottom: 0.4rem;
+        }
+        .price-card .price-desc {
+            font-size: 0.85rem; color: var(--text-light); margin-bottom: 1.2rem;
+        }
+        .price-amount {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem; font-weight: 700; color: var(--navy);
+            line-height: 1; margin-bottom: 0.3rem;
+        }
+        .price-amount span { font-size: 1rem; font-weight: 400; color: var(--text-light); }
+        .price-from { font-size: 0.78rem; color: var(--text-light); margin-bottom: 1.5rem; }
+        .price-features {
+            list-style: none; display: flex; flex-direction: column; gap: 0.65rem;
+            margin-bottom: 1.8rem;
+        }
+        .price-features li {
+            font-size: 0.88rem; color: var(--text);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .price-features li svg { flex-shrink: 0; }
+        .btn-card {
+            display: block; text-align: center;
+            padding: 0.75rem; border-radius: 8px;
+            font-weight: 600; font-size: 0.9rem;
+            text-decoration: none; transition: all 0.3s ease;
+        }
+        .btn-card-primary {
+            background: var(--navy); color: var(--white);
+        }
+        .btn-card-primary:hover { background: var(--navy-light); }
+        .btn-card-gold {
+            background: var(--gold); color: var(--navy);
+        }
+        .btn-card-gold:hover { background: var(--gold-light); }
+
+        /* ======================== SOCIAL PROOF ======================== */
+        .social-band {
+            background: var(--navy);
+            padding: 4rem 2rem; text-align: center;
+            position: relative; overflow: hidden;
+        }
+        .social-band::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(ellipse at center, rgba(200,162,78,0.06), transparent 70%);
+        }
+        .social-band .container { position: relative; z-index: 1; }
+        .social-band h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem; color: var(--white); margin-bottom: 0.5rem;
+        }
+        .social-band p { color: rgba(255,255,255,0.5); font-size: 0.95rem; margin-bottom: 2rem; }
+        .social-icons {
+            display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;
+        }
+        .social-link {
+            display: flex; align-items: center; gap: 10px;
+            color: rgba(255,255,255,0.7); text-decoration: none;
+            font-size: 0.9rem; font-weight: 500;
+            padding: 0.7rem 1.5rem; border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+        .social-link:hover {
+            border-color: var(--gold); color: var(--gold);
+            background: rgba(200,162,78,0.05);
+            transform: translateY(-2px);
+        }
+        .social-link svg { width: 22px; height: 22px; }
+
+        /* ======================== CONTACT ======================== */
+        #contact { background: var(--cream); }
+        .contact-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 3rem; margin-top: 3rem;
+        }
+        .contact-info h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem; font-weight: 700;
+            color: var(--navy); margin-bottom: 1rem;
+        }
+        .contact-info p {
+            font-size: 0.95rem; color: var(--text-light);
+            line-height: 1.7; margin-bottom: 1.5rem;
+        }
+        .contact-item {
+            display: flex; align-items: center; gap: 14px;
+            margin-bottom: 1rem;
+        }
+        .contact-item-icon {
+            width: 44px; height: 44px; border-radius: 12px;
+            background: var(--white); display: flex;
+            align-items: center; justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+        }
+        .contact-item-text { font-size: 0.9rem; color: var(--text); font-weight: 500; }
+        .contact-item-label { font-size: 0.75rem; color: var(--text-light); }
+
+        .contact-form {
+            background: var(--white); border-radius: 16px;
+            padding: 2.5rem; box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+        }
+        .form-group { margin-bottom: 1.2rem; }
+        .form-group label {
+            display: block; font-size: 0.82rem; font-weight: 600;
+            color: var(--navy); margin-bottom: 0.4rem; letter-spacing: 0.3px;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 0.75rem 1rem;
+            border: 1px solid var(--cream-dark); border-radius: 8px;
+            font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+            color: var(--text); background: var(--cream);
+            transition: all 0.3s ease; outline: none;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--gold); background: var(--white);
+            box-shadow: 0 0 0 3px rgba(200,162,78,0.1);
+        }
+        .form-group textarea { resize: vertical; min-height: 100px; }
+        .btn-submit {
+            width: 100%; padding: 0.9rem; border: none;
+            background: var(--gold); color: var(--navy);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem; font-weight: 700;
+            border-radius: 8px; cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-submit:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+        /* ======================== FOOTER ======================== */
+        footer {
+            background: var(--navy); color: rgba(255,255,255,0.5);
+            padding: 3rem 2rem 1.5rem; text-align: center;
+        }
+        footer .footer-logo { margin-bottom: 1.5rem; }
+        footer .footer-logo svg { width: 50px; height: 50px; }
+        footer .footer-links {
+            display: flex; justify-content: center; gap: 2rem;
+            margin-bottom: 1.5rem; flex-wrap: wrap;
+        }
+        footer .footer-links a {
+            color: rgba(255,255,255,0.5); text-decoration: none;
+            font-size: 0.85rem; transition: color 0.3s;
+        }
+        footer .footer-links a:hover { color: var(--gold); }
+        footer .footer-copy {
+            font-size: 0.78rem; padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        /* ======================== RESPONSIVE ======================== */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-toggle { display: block; }
+            .nav-links.open {
+                display: flex; flex-direction: column;
+                position: fixed; inset: 0;
+                background: rgba(15,26,46,0.98);
+                align-items: center; justify-content: center;
+                gap: 2rem; z-index: 150;
+            }
+            .nav-links.open a { font-size: 1.2rem; color: var(--white); }
+            .about-grid, .contact-grid { grid-template-columns: 1fr; }
+            .about-visual { height: 300px; }
+            section { padding: 4rem 1.2rem; }
+        }
+
+        /* ======================== ANGKOR DECORATIVE LINE ======================== */
+        .angkor-divider {
+            display: flex; align-items: center; justify-content: center;
+            gap: 1rem; margin: 0 auto; max-width: 300px;
+            padding: 1rem 0;
+        }
+        .angkor-divider .line {
+            flex: 1; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-dark), transparent);
+        }
+        .angkor-divider svg { width: 20px; height: 20px; opacity: 0.5; }
+    </style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+    <svg viewBox="0 0 80 80">
+        <circle class="loader-ring" cx="40" cy="40" r="35"/>
+    </svg>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+    <a href="#" class="nav-logo">
+        <!-- Angkor Temple SVG Logo -->
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="logoGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#E8D49A"/>
+                    <stop offset="50%" style="stop-color:#C8A24E"/>
+                    <stop offset="100%" style="stop-color:#9A7B2F"/>
+                </linearGradient>
+            </defs>
+            <!-- Base platform -->
+            <rect x="8" y="48" width="44" height="4" rx="1" fill="url(#logoGold)" opacity="0.8"/>
+            <!-- Main temple body -->
+            <rect x="14" y="36" width="32" height="12" rx="1" fill="url(#logoGold)" opacity="0.7"/>
+            <!-- Middle tier -->
+            <rect x="18" y="26" width="24" height="10" rx="1" fill="url(#logoGold)" opacity="0.8"/>
+            <!-- Top tier -->
+            <rect x="22" y="18" width="16" height="8" rx="1" fill="url(#logoGold)" opacity="0.9"/>
+            <!-- Central tower (prasat) -->
+            <path d="M27 18 L30 6 L33 18" fill="url(#logoGold)"/>
+            <!-- Tower tip -->
+            <circle cx="30" cy="5" r="2" fill="url(#logoGold)"/>
+            <!-- Side towers -->
+            <path d="M16 36 L18.5 28 L21 36" fill="url(#logoGold)" opacity="0.7"/>
+            <path d="M39 36 L41.5 28 L44 36" fill="url(#logoGold)" opacity="0.7"/>
+            <!-- Window details -->
+            <rect x="24" y="20" width="3" height="4" rx="0.5" fill="#0F1A2E" opacity="0.4"/>
+            <rect x="33" y="20" width="3" height="4" rx="0.5" fill="#0F1A2E" opacity="0.4"/>
+            <rect x="28" y="29" width="4" height="5" rx="0.5" fill="#0F1A2E" opacity="0.3"/>
+            <!-- Decorative steps -->
+            <rect x="11" y="44" width="38" height="4" rx="1" fill="url(#logoGold)" opacity="0.6"/>
+        </svg>
+        <span class="nav-brand">Vivre au Cambodge</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+        <a href="#services">Services</a>
+        <a href="#about">A propos</a>
+        <a href="#tarifs">Tarifs</a>
+        <a href="#contact" class="nav-cta">Nous contacter</a>
+    </div>
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="particles" id="particles"></div>
+    <div class="hero-content">
+        <div class="hero-logo-main">
+            <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="heroGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#E8D49A"/>
+                        <stop offset="50%" style="stop-color:#C8A24E"/>
+                        <stop offset="100%" style="stop-color:#9A7B2F"/>
+                    </linearGradient>
+                    <filter id="glow">
+                        <feGaussianBlur stdDeviation="2" result="blur"/>
+                        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    </filter>
+                </defs>
+                <!-- Outer circle -->
+                <circle cx="70" cy="70" r="66" fill="none" stroke="url(#heroGold)" stroke-width="1" opacity="0.3"/>
+                <circle cx="70" cy="70" r="60" fill="none" stroke="url(#heroGold)" stroke-width="0.5" opacity="0.2"/>
+                <!-- Angkor temple detailed -->
+                <g filter="url(#glow)" transform="translate(70,72) scale(1.1)">
+                    <!-- Base -->
+                    <rect x="-32" y="18" width="64" height="5" rx="1.5" fill="url(#heroGold)" opacity="0.7"/>
+                    <rect x="-28" y="14" width="56" height="5" rx="1" fill="url(#heroGold)" opacity="0.6"/>
+                    <!-- Main body -->
+                    <rect x="-24" y="2" width="48" height="12" rx="1" fill="url(#heroGold)" opacity="0.75"/>
+                    <!-- Middle tier -->
+                    <rect x="-18" y="-8" width="36" height="10" rx="1" fill="url(#heroGold)" opacity="0.85"/>
+                    <!-- Top tier -->
+                    <rect x="-12" y="-16" width="24" height="8" rx="1" fill="url(#heroGold)" opacity="0.9"/>
+                    <!-- Central prasat -->
+                    <path d="M-6 -16 L0 -34 L6 -16" fill="url(#heroGold)"/>
+                    <circle cx="0" cy="-36" r="3" fill="url(#heroGold)"/>
+                    <!-- Side towers -->
+                    <path d="M-20 2 L-16 -10 L-12 2" fill="url(#heroGold)" opacity="0.7"/>
+                    <path d="M12 2 L16 -10 L20 2" fill="url(#heroGold)" opacity="0.7"/>
+                    <!-- Far side small towers -->
+                    <path d="M-26 14 L-24 6 L-22 14" fill="url(#heroGold)" opacity="0.5"/>
+                    <path d="M22 14 L24 6 L26 14" fill="url(#heroGold)" opacity="0.5"/>
+                    <!-- Windows -->
+                    <rect x="-4" y="-12" width="8" height="6" rx="1" fill="#0F1A2E" opacity="0.3"/>
+                    <rect x="-18" y="-4" width="5" height="4" rx="0.5" fill="#0F1A2E" opacity="0.25"/>
+                    <rect x="13" y="-4" width="5" height="4" rx="0.5" fill="#0F1A2E" opacity="0.25"/>
+                    <rect x="-8" y="5" width="4" height="5" rx="0.5" fill="#0F1A2E" opacity="0.2"/>
+                    <rect x="4" y="5" width="4" height="5" rx="0.5" fill="#0F1A2E" opacity="0.2"/>
+                </g>
+                <!-- Decorative dots -->
+                <circle cx="70" cy="128" r="2" fill="url(#heroGold)" opacity="0.4"/>
+                <circle cx="60" cy="126" r="1.2" fill="url(#heroGold)" opacity="0.3"/>
+                <circle cx="80" cy="126" r="1.2" fill="url(#heroGold)" opacity="0.3"/>
+            </svg>
+        </div>
+        <div class="hero-badge">Phnom Penh &bull; Cambodge</div>
+        <h1>Votre nouvelle vie<br>au <span class="gold">Cambodge</span><br>commence ici</h1>
+        <p class="hero-sub">Visa, logement, emploi, tourisme — on s'occupe de tout.<br>Un service francophone par des expatries, pour des expatries.</p>
+        <div class="hero-buttons">
+            <a href="#contact" class="btn-primary">
+                Demander un devis gratuit
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#services" class="btn-outline">Decouvrir nos services</a>
+        </div>
+    </div>
+    <div class="hero-scroll">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(200,162,78,0.5)" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+    <div class="container">
+        <div class="reveal">
+            <p class="section-label">Nos Services</p>
+            <h2 class="section-title">Tout ce dont vous avez besoin,<br>sous un meme toit</h2>
+            <p class="section-desc">De votre premier visa a votre installation complete, nous vous accompagnons a chaque etape.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card reveal">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18"/><circle cx="7.5" cy="14.5" r="1.5"/></svg>
+                </div>
+                <h3>Visa &amp; Demarches</h3>
+                <p>Conseil personnalise, aide complete pour tous types de visa (touriste, business, retraite), extensions et renouvellements. Fini le stress administratif.</p>
+                <span class="service-tag">A partir de 25 $</span>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                </div>
+                <h3>Logement</h3>
+                <p>Recherche personnalisee, visites, negociation du bail, verification du proprietaire. On vous trouve le logement ideal selon votre budget et vos envies.</p>
+                <span class="service-tag">A partir de 100 $</span>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
+                </div>
+                <h3>Emploi</h3>
+                <p>Coaching, redaction de CV adapte au marche local, mise en relation avec des employeurs. On vous aide a trouver votre place au Cambodge.</p>
+                <span class="service-tag">A partir de 40 $</span>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z"/></svg>
+                </div>
+                <h3>Tourisme</h3>
+                <p>Circuits personnalises en francais : Angkor, Phnom Penh, Kampot, plages paradisiaques. Des experiences authentiques hors des sentiers battus.</p>
+                <span class="service-tag">A partir de 45 $</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ANGKOR DIVIDER -->
+<div class="angkor-divider">
+    <div class="line"></div>
+    <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 16L10 4l2 12" stroke="#9A7B2F" stroke-width="1"/>
+        <rect x="5" y="16" width="10" height="2" rx="0.5" fill="#9A7B2F"/>
+    </svg>
+    <div class="line"></div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-visual reveal">
+                <div class="about-pattern">
+                    <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                        <g opacity="0.5">
+                            <path d="M160 200 L200 40 L240 200" stroke="#C8A24E" stroke-width="1" fill="none"/>
+                            <rect x="120" y="160" width="160" height="10" rx="2" stroke="#C8A24E" stroke-width="0.5" fill="none"/>
+                            <rect x="140" y="140" width="120" height="20" rx="2" stroke="#C8A24E" stroke-width="0.5" fill="none"/>
+                            <rect x="155" y="110" width="90" height="30" rx="2" stroke="#C8A24E" stroke-width="0.5" fill="none"/>
+                            <rect x="170" y="80" width="60" height="30" rx="2" stroke="#C8A24E" stroke-width="0.5" fill="none"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-box">
+                        <div class="stat-num">5 000+</div>
+                        <div class="stat-label">Francais au Cambodge</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-num">6.7M</div>
+                        <div class="stat-label">Touristes / an</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-num">2</div>
+                        <div class="stat-label">Fondateurs sur place</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-num">100%</div>
+                        <div class="stat-label">Francophone</div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-text reveal">
+                <p class="section-label">A propos</p>
+                <h2 class="section-title">Deux expatries,<br>une mission</h2>
+                <p>Nous sommes deux Francais installes au Cambodge. L'un francais, l'autre franco-khmer. On connait le pays, la culture, la langue et surtout les galeres que rencontrent les Francais quand ils arrivent ici.</p>
+                <p>On a cree <strong>Vivre au Cambodge</strong> pour que votre installation ou votre voyage se passe sans stress, avec des gens de confiance qui parlent votre langue.</p>
+                <ul class="about-features">
+                    <li>
+                        <span class="check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2E8B7A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        Equipe 100% francophone sur place
+                    </li>
+                    <li>
+                        <span class="check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2E8B7A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        Associe franco-khmer (double culture)
+                    </li>
+                    <li>
+                        <span class="check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2E8B7A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        Reseau local de confiance
+                    </li>
+                    <li>
+                        <span class="check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2E8B7A" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                        Tarifs transparents et accessibles
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PRICING -->
+<section id="tarifs">
+    <div class="container">
+        <div class="reveal" style="text-align:center; margin-bottom: 1rem;">
+            <p class="section-label">Nos Packages</p>
+            <h2 class="section-title">Des formules claires,<br>sans surprise</h2>
+            <p class="section-desc" style="margin: 0 auto;">Choisissez le package adapte a votre projet. Tous nos tarifs sont en dollars americains (USD).</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="price-card reveal">
+                <h3>Pack Visa</h3>
+                <p class="price-desc">Votre visa, simplement</p>
+                <div class="price-amount">50 $ <span>et +</span></div>
+                <p class="price-from">selon le type de visa</p>
+                <ul class="price-features">
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2E8B7A" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Analyse de votre situation</li>
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2E8B7A" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Aide au dossier complet</li>
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2E8B7A" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Suivi des demarches</li>
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2E8B7A" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Rappels renouvellement</li>
+                </ul>
+                <a href="#contact" class="btn-card btn-card-primary">Demander un devis</a>
+            </div>
+            <div class="price-card featured reveal">
+                <h3>Pack Arrivee</h3>
+                <p class="price-desc">Installation cle en main</p>
+                <div class="price-amount">400 $ <span>et +</span></div>
+                <p class="price-from">visa + logement + orientation</p>
+                <ul class="price-features">
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2E8B7A" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Tout le Pack Visa inclus</li>
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2E8B7A" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Recherche logement (5 options)</li>
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2E8B7A" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> SIM + compte bancaire</li>
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2E8B7A" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Orientation quartier</li>
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2E8B7A" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Transfert aeroport</li>
+                </ul>
+                <a href="#contact" class="btn-card btn-card-gold">Choisir ce pack</a>
+            </div>
+            <div class="price-card reveal">
+                <h3>Pack Tourisme</h3>
+                <p class="price-desc">Voyagez autrement</p>
+                <div class="price-amount">45 $ <span>/ jour</span></div>
+                <p class="price-from">circuits personnalises en francais</p>
+                <ul class="price-features">
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2E8B7A" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Guide francophone</li>
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2E8B7A" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Transport prive</li>
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2E8B7A" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Itineraire sur mesure</li>
+                    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2E8B7A" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Lieux hors sentiers battus</li>
+                </ul>
+                <a href="#contact" class="btn-card btn-card-primary">Planifier mon voyage</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SOCIAL BAND -->
+<div class="social-band">
+    <div class="container reveal">
+        <h2>Suivez notre aventure</h2>
+        <p>Bons plans, vie quotidienne au Cambodge, coulisses — rejoignez la communaute !</p>
+        <div class="social-icons">
+            <a href="#" class="social-link">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.75a8.18 8.18 0 0 0 4.79 1.53V6.83a4.84 4.84 0 0 1-1.03-.14z"/></svg>
+                TikTok
+            </a>
+            <a href="#" class="social-link">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                Facebook
+            </a>
+            <a href="#" class="social-link">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                Instagram
+            </a>
+            <a href="#" class="social-link">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                YouTube
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+    <div class="container">
+        <div class="contact-grid">
+            <div class="contact-info reveal">
+                <p class="section-label">Contact</p>
+                <h2 class="section-title">Parlons de<br>votre projet</h2>
+                <p>Que vous souhaitiez vous installer, trouver un logement ou planifier un voyage, contactez-nous. La premiere consultation est gratuite.</p>
+                <div class="contact-item">
+                    <div class="contact-item-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8A24E" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </div>
+                    <div>
+                        <div class="contact-item-label">Localisation</div>
+                        <div class="contact-item-text">Phnom Penh, Cambodge</div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8A24E" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </div>
+                    <div>
+                        <div class="contact-item-label">Email</div>
+                        <div class="contact-item-text">contact@vivreaucambodge.com</div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8A24E" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    </div>
+                    <div>
+                        <div class="contact-item-label">WhatsApp / Telegram</div>
+                        <div class="contact-item-text">+855 XX XXX XXX</div>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form reveal">
+                <form id="contactForm" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label>Votre nom</label>
+                        <input type="text" placeholder="Jean Dupont" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Votre email</label>
+                        <input type="email" placeholder="jean@exemple.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Vous etes interesse par</label>
+                        <select required>
+                            <option value="">Choisissez un service...</option>
+                            <option>Visa & Demarches administratives</option>
+                            <option>Recherche de logement</option>
+                            <option>Aide a l'emploi</option>
+                            <option>Tourisme & Visites guidees</option>
+                            <option>Pack complet (installation)</option>
+                            <option>Autre demande</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Votre message</label>
+                        <textarea placeholder="Decrivez votre projet ou posez vos questions..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Envoyer ma demande</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-logo">
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="48" width="44" height="4" rx="1" fill="#C8A24E" opacity="0.5"/>
+            <rect x="14" y="36" width="32" height="12" rx="1" fill="#C8A24E" opacity="0.4"/>
+            <rect x="18" y="26" width="24" height="10" rx="1" fill="#C8A24E" opacity="0.5"/>
+            <rect x="22" y="18" width="16" height="8" rx="1" fill="#C8A24E" opacity="0.6"/>
+            <path d="M27 18 L30 6 L33 18" fill="#C8A24E" opacity="0.7"/>
+            <circle cx="30" cy="5" r="2" fill="#C8A24E" opacity="0.7"/>
+        </svg>
+    </div>
+    <div class="footer-links">
+        <a href="#services">Services</a>
+        <a href="#about">A propos</a>
+        <a href="#tarifs">Tarifs</a>
+        <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-copy">
+        &copy; 2026 Vivre au Cambodge. Tous droits reserves. Phnom Penh, Royaume du Cambodge.
+    </div>
+</footer>
+
+<script>
+    // Loader
+    window.addEventListener('load', () => {
+        setTimeout(() => document.getElementById('loader').classList.add('hidden'), 800);
+    });
+
+    // Particles
+    const particlesEl = document.getElementById('particles');
+    for (let i = 0; i < 30; i++) {
+        const p = document.createElement('div');
+        p.classList.add('particle');
+        p.style.left = Math.random() * 100 + '%';
+        p.style.animationDelay = Math.random() * 8 + 's';
+        p.style.animationDuration = (6 + Math.random() * 6) + 's';
+        p.style.width = p.style.height = (2 + Math.random() * 3) + 'px';
+        particlesEl.appendChild(p);
+    }
+
+    // Nav scroll
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Mobile menu
+    const toggle = document.getElementById('mobileToggle');
+    const navLinks = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => {
+        toggle.classList.toggle('active');
+        navLinks.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+            toggle.classList.remove('active');
+            navLinks.classList.remove('open');
+        });
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => entry.target.classList.add('visible'), i * 100);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    reveals.forEach(el => observer.observe(el));
+
+    // Form
+    function handleSubmit(e) {
+        e.preventDefault();
+        const btn = e.target.querySelector('.btn-submit');
+        btn.textContent = 'Message envoye !';
+        btn.style.background = '#2E8B7A';
+        btn.style.color = '#fff';
+        setTimeout(() => {
+            btn.textContent = 'Envoyer ma demande';
+            btn.style.background = '';
+            btn.style.color = '';
+            e.target.reset();
+        }, 3000);
+    }
+
+    // Counter animation for stats
+    const statNums = document.querySelectorAll('.stat-num');
+    const statObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                const text = el.textContent;
+                if (text.includes('+') || text.includes('%') || text.includes('M')) {
+                    // Animate with a pulse
+                    el.style.transform = 'scale(1.1)';
+                    el.style.transition = 'transform 0.4s ease';
+                    setTimeout(() => el.style.transform = 'scale(1)', 400);
+                }
+                statObserver.unobserve(el);
+            }
+        });
+    }, { threshold: 0.5 });
+    statNums.forEach(el => statObserver.observe(el));
+</script>
+</body>
+</html>
